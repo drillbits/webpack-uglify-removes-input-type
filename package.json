@@ -1,0 +1,27 @@
+{
+  "name": "webpack-uglify-removes-input-type",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drillbits/webpack-uglify-removes-input-type"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drillbits/webpack-uglify-removes-input-type/issues"
+  },
+  "homepage": "https://github.com/drillbits/webpack-uglify-removes-input-type",
+  "dependencies": {
+    "cheerio": "^0.18.0",
+    "grunt": "^0.4.5",
+    "grunt-webpack": "^1.0.8",
+    "html-loader": "^0.2.3",
+    "json-loader": "^0.5.1",
+    "webpack": "^1.5.3"
+  }
+}
