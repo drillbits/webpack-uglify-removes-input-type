@@ -1,7 +1,7 @@
 webpack-uglify-removes-input-type
 =================================
 
-webpack.optimize.UglifyJsPlugin seems to remove text type attribute of input tag from html string that loaded by html-loader.
+[webpack.optimize.UglifyJsPlugin](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin) seems to remove a text type attribute of the input tag from html string that loaded by [html-loader](https://www.npmjs.com/package/html-loader).
 
 ## Build
 
@@ -57,4 +57,7 @@ $ node dest/loadhtml.bundle.min.js
 #input-type-image: input type=image
 #input-type-foo: input type=foo
 ```
+
 The default value of the type attribute is `text`.
+
+But the CSS selector such as `input[type="text"]` does not applied if the type attribute is removed.
