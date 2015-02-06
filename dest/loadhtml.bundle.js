@@ -90,7 +90,7 @@
 	*/
 
 	var parse = __webpack_require__(5),
-	    _ = __webpack_require__(11);
+	    _ = __webpack_require__(12);
 
 	/*
 	 * The API
@@ -431,8 +431,8 @@
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(11),
-	  utils = __webpack_require__(12),
+	var _ = __webpack_require__(12),
+	  utils = __webpack_require__(11),
 	  isTag = utils.isTag,
 	  domEach = utils.domEach,
 	  hasOwn = Object.prototype.hasOwnProperty,
@@ -853,9 +853,9 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(11),
+	var _ = __webpack_require__(12),
 	    select = __webpack_require__(14),
-	    utils = __webpack_require__(12),
+	    utils = __webpack_require__(11),
 	    domEach = utils.domEach,
 	    uniqueSort = __webpack_require__(16).DomUtils.uniqueSort,
 	    isTag = utils.isTag;
@@ -1282,12 +1282,12 @@
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(11),
+	var _ = __webpack_require__(12),
 	    parse = __webpack_require__(5),
 	    $ = __webpack_require__(10),
 	    updateDOM = parse.update,
 	    evaluate = parse.evaluate,
-	    utils = __webpack_require__(12),
+	    utils = __webpack_require__(11),
 	    domEach = utils.domEach,
 	    slice = Array.prototype.slice;
 
@@ -1591,8 +1591,8 @@
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(11),
-	    domEach = __webpack_require__(12).domEach;
+	var _ = __webpack_require__(12),
+	    domEach = __webpack_require__(11).domEach;
 	var toString = Object.prototype.toString;
 
 	/**
@@ -1722,7 +1722,7 @@
 	var select = __webpack_require__(14),
 	    parse = __webpack_require__(5),
 	    render = __webpack_require__(15),
-	    _ = __webpack_require__(11);
+	    _ = __webpack_require__(12);
 
 	/**
 	 * $.load(str)
@@ -1879,6 +1879,63 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * HTML Tags
+	 */
+
+	var tags = { tag: true, script: true, style: true };
+
+	/**
+	 * Check if the DOM element is a tag
+	 *
+	 * isTag(type) includes <script> and <style> tags
+	 */
+
+	exports.isTag = function(type) {
+	  if (type.type) type = type.type;
+	  return tags[type] || false;
+	};
+
+	/**
+	 * Convert a string to camel case notation.
+	 * @param  {String} str String to be converted.
+	 * @return {String}     String in camel case notation.
+	 */
+
+	exports.camelCase = function(str) {
+	  return str.replace(/[_.-](\w|$)/g, function(_, x) {
+	    return x.toUpperCase();
+	  });
+	};
+
+	/**
+	 * Convert a string from camel case to "CSS case", where word boundaries are
+	 * described by hyphens ("-") and all characters are lower-case.
+	 * @param  {String} str String to be converted.
+	 * @return {string}     String in "CSS case".
+	 */
+	exports.cssCase = function(str) {
+	  return str.replace(/[A-Z]/g, '-$&').toLowerCase();
+	};
+
+	/**
+	 * Iterate over each DOM element without creating intermediary Cheerio instances.
+	 *
+	 * This is indented for use internally to avoid otherwise unnecessary memory pressure introduced
+	 * by _make.
+	 */
+
+	exports.domEach = function(cheerio, fn) {
+	  var i = 0, len = cheerio.length;
+	  while (i < len && fn(i, cheerio[i]) !== false) ++i;
+	  return cheerio;
+	};
+
+
+/***/ },
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/**
@@ -9042,63 +9099,6 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)(module), (function() { return this; }())))
 
 /***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * HTML Tags
-	 */
-
-	var tags = { tag: true, script: true, style: true };
-
-	/**
-	 * Check if the DOM element is a tag
-	 *
-	 * isTag(type) includes <script> and <style> tags
-	 */
-
-	exports.isTag = function(type) {
-	  if (type.type) type = type.type;
-	  return tags[type] || false;
-	};
-
-	/**
-	 * Convert a string to camel case notation.
-	 * @param  {String} str String to be converted.
-	 * @return {String}     String in camel case notation.
-	 */
-
-	exports.camelCase = function(str) {
-	  return str.replace(/[_.-](\w|$)/g, function(_, x) {
-	    return x.toUpperCase();
-	  });
-	};
-
-	/**
-	 * Convert a string from camel case to "CSS case", where word boundaries are
-	 * described by hyphens ("-") and all characters are lower-case.
-	 * @param  {String} str String to be converted.
-	 * @return {string}     String in "CSS case".
-	 */
-	exports.cssCase = function(str) {
-	  return str.replace(/[A-Z]/g, '-$&').toLowerCase();
-	};
-
-	/**
-	 * Iterate over each DOM element without creating intermediary Cheerio instances.
-	 *
-	 * This is indented for use internally to avoid otherwise unnecessary memory pressure introduced
-	 * by _make.
-	 */
-
-	exports.domEach = function(cheerio, fn) {
-	  var i = 0, len = cheerio.length;
-	  while (i < len && fn(i, cheerio[i]) !== false) ++i;
-	  return cheerio;
-	};
-
-
-/***/ },
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -9109,7 +9109,7 @@
 	 * @license  MIT
 	 */
 
-	var base64 = __webpack_require__(36)
+	var base64 = __webpack_require__(33)
 	var ieee754 = __webpack_require__(28)
 	var isArray = __webpack_require__(29)
 
@@ -10166,7 +10166,7 @@
 	module.exports = CSSselect;
 
 	var Pseudos       = __webpack_require__(17),
-	    DomUtils      = __webpack_require__(30),
+	    DomUtils      = __webpack_require__(32),
 	    findOne       = DomUtils.findOne,
 	    findAll       = DomUtils.findAll,
 	    getChildren   = DomUtils.getChildren,
@@ -10224,8 +10224,8 @@
 	/*
 	  Module dependencies
 	*/
-	var ElementType = __webpack_require__(32);
-	var entities = __webpack_require__(31);
+	var ElementType = __webpack_require__(31);
+	var entities = __webpack_require__(30);
 
 	/*
 	  Boolean Attributes
@@ -10410,7 +10410,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Parser = __webpack_require__(21),
-	    DomHandler = __webpack_require__(33);
+	    DomHandler = __webpack_require__(34);
 
 	function defineProp(name, value){
 		delete module.exports[name];
@@ -10421,7 +10421,7 @@
 	module.exports = {
 		Parser: Parser,
 		Tokenizer: __webpack_require__(22),
-		ElementType: __webpack_require__(34),
+		ElementType: __webpack_require__(35),
 		DomHandler: DomHandler,
 		get FeedHandler(){
 			return defineProp("FeedHandler", __webpack_require__(23));
@@ -10436,7 +10436,7 @@
 			return defineProp("ProxyHandler", __webpack_require__(26));
 		},
 		get DomUtils(){
-			return defineProp("DomUtils", __webpack_require__(35));
+			return defineProp("DomUtils", __webpack_require__(36));
 		},
 		get CollectingHandler(){
 			return defineProp("CollectingHandler", __webpack_require__(27));
@@ -10496,7 +10496,7 @@
 		  they need to return a boolean
 	*/
 
-	var DomUtils    = __webpack_require__(30),
+	var DomUtils    = __webpack_require__(32),
 	    isTag       = DomUtils.isTag,
 	    getText     = DomUtils.getText,
 	    getParent   = DomUtils.getParent,
@@ -10847,8 +10847,8 @@
 	module.exports = compile;
 	module.exports.compileUnsafe = compileUnsafe;
 
-	var parse       = __webpack_require__(42),
-	    DomUtils    = __webpack_require__(30),
+	var parse       = __webpack_require__(44),
+	    DomUtils    = __webpack_require__(32),
 	    isTag       = DomUtils.isTag,
 	    Rules       = __webpack_require__(40),
 	    sortRules   = __webpack_require__(41),
@@ -11305,9 +11305,9 @@
 	module.exports = Tokenizer;
 
 	var decodeCodePoint = __webpack_require__(62),
-	    entityMap = __webpack_require__(63),
+	    entityMap = __webpack_require__(65),
 	    legacyMap = __webpack_require__(64),
-	    xmlMap    = __webpack_require__(65),
+	    xmlMap    = __webpack_require__(66),
 
 	    i = 0,
 
@@ -12603,28 +12603,8 @@
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DomUtils = module.exports;
-
-	[
-		__webpack_require__(43),
-		__webpack_require__(44),
-		__webpack_require__(45),
-		__webpack_require__(46),
-		__webpack_require__(47),
-		__webpack_require__(48)
-	].forEach(function(ext){
-		Object.keys(ext).forEach(function(key){
-			DomUtils[key] = ext[key].bind(DomUtils);
-		});
-	});
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var encode = __webpack_require__(49),
-	    decode = __webpack_require__(50);
+	var encode = __webpack_require__(42),
+	    decode = __webpack_require__(43);
 
 	exports.decode = function(data, level){
 		return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -12659,7 +12639,7 @@
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//Types of elements found in the DOM
@@ -12678,10 +12658,156 @@
 	};
 
 /***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DomUtils = module.exports;
+
+	[
+		__webpack_require__(45),
+		__webpack_require__(46),
+		__webpack_require__(47),
+		__webpack_require__(48),
+		__webpack_require__(49),
+		__webpack_require__(50)
+	].forEach(function(ext){
+		Object.keys(ext).forEach(function(key){
+			DomUtils[key] = ext[key].bind(DomUtils);
+		});
+	});
+
+
+/***/ },
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(34);
+	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+	;(function (exports) {
+		'use strict';
+
+	  var Arr = (typeof Uint8Array !== 'undefined')
+	    ? Uint8Array
+	    : Array
+
+		var PLUS   = '+'.charCodeAt(0)
+		var SLASH  = '/'.charCodeAt(0)
+		var NUMBER = '0'.charCodeAt(0)
+		var LOWER  = 'a'.charCodeAt(0)
+		var UPPER  = 'A'.charCodeAt(0)
+
+		function decode (elt) {
+			var code = elt.charCodeAt(0)
+			if (code === PLUS)
+				return 62 // '+'
+			if (code === SLASH)
+				return 63 // '/'
+			if (code < NUMBER)
+				return -1 //no match
+			if (code < NUMBER + 10)
+				return code - NUMBER + 26 + 26
+			if (code < UPPER + 26)
+				return code - UPPER
+			if (code < LOWER + 26)
+				return code - LOWER + 26
+		}
+
+		function b64ToByteArray (b64) {
+			var i, j, l, tmp, placeHolders, arr
+
+			if (b64.length % 4 > 0) {
+				throw new Error('Invalid string. Length must be a multiple of 4')
+			}
+
+			// the number of equal signs (place holders)
+			// if there are two placeholders, than the two characters before it
+			// represent one byte
+			// if there is only one, then the three characters before it represent 2 bytes
+			// this is just a cheap hack to not do indexOf twice
+			var len = b64.length
+			placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
+
+			// base64 is 4/3 + up to two characters of the original data
+			arr = new Arr(b64.length * 3 / 4 - placeHolders)
+
+			// if there are placeholders, only get up to the last complete 4 chars
+			l = placeHolders > 0 ? b64.length - 4 : b64.length
+
+			var L = 0
+
+			function push (v) {
+				arr[L++] = v
+			}
+
+			for (i = 0, j = 0; i < l; i += 4, j += 3) {
+				tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
+				push((tmp & 0xFF0000) >> 16)
+				push((tmp & 0xFF00) >> 8)
+				push(tmp & 0xFF)
+			}
+
+			if (placeHolders === 2) {
+				tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
+				push(tmp & 0xFF)
+			} else if (placeHolders === 1) {
+				tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
+				push((tmp >> 8) & 0xFF)
+				push(tmp & 0xFF)
+			}
+
+			return arr
+		}
+
+		function uint8ToBase64 (uint8) {
+			var i,
+				extraBytes = uint8.length % 3, // if we have 1 byte left, pad 2 bytes
+				output = "",
+				temp, length
+
+			function encode (num) {
+				return lookup.charAt(num)
+			}
+
+			function tripletToBase64 (num) {
+				return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
+			}
+
+			// go through the array every three bytes, we'll deal with trailing stuff later
+			for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
+				temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+				output += tripletToBase64(temp)
+			}
+
+			// pad the end with zeros, but make sure to not forget the extra bytes
+			switch (extraBytes) {
+				case 1:
+					temp = uint8[uint8.length - 1]
+					output += encode(temp >> 2)
+					output += encode((temp << 4) & 0x3F)
+					output += '=='
+					break
+				case 2:
+					temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
+					output += encode(temp >> 10)
+					output += encode((temp >> 4) & 0x3F)
+					output += encode((temp << 2) & 0x3F)
+					output += '='
+					break
+			}
+
+			return output
+		}
+
+		exports.toByteArray = b64ToByteArray
+		exports.fromByteArray = uint8ToBase64
+	}(false ? (this.base64js = {}) : exports))
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ElementType = __webpack_require__(35);
 
 	var re_whitespace = /\s+/g;
 	var NodePrototype = __webpack_require__(54);
@@ -12866,7 +12992,7 @@
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//Types of elements found in the DOM
@@ -12885,7 +13011,7 @@
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DomUtils = module.exports;
@@ -12902,132 +13028,6 @@
 			DomUtils[key] = ext[key].bind(DomUtils);
 		});
 	});
-
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-	;(function (exports) {
-		'use strict';
-
-	  var Arr = (typeof Uint8Array !== 'undefined')
-	    ? Uint8Array
-	    : Array
-
-		var PLUS   = '+'.charCodeAt(0)
-		var SLASH  = '/'.charCodeAt(0)
-		var NUMBER = '0'.charCodeAt(0)
-		var LOWER  = 'a'.charCodeAt(0)
-		var UPPER  = 'A'.charCodeAt(0)
-
-		function decode (elt) {
-			var code = elt.charCodeAt(0)
-			if (code === PLUS)
-				return 62 // '+'
-			if (code === SLASH)
-				return 63 // '/'
-			if (code < NUMBER)
-				return -1 //no match
-			if (code < NUMBER + 10)
-				return code - NUMBER + 26 + 26
-			if (code < UPPER + 26)
-				return code - UPPER
-			if (code < LOWER + 26)
-				return code - LOWER + 26
-		}
-
-		function b64ToByteArray (b64) {
-			var i, j, l, tmp, placeHolders, arr
-
-			if (b64.length % 4 > 0) {
-				throw new Error('Invalid string. Length must be a multiple of 4')
-			}
-
-			// the number of equal signs (place holders)
-			// if there are two placeholders, than the two characters before it
-			// represent one byte
-			// if there is only one, then the three characters before it represent 2 bytes
-			// this is just a cheap hack to not do indexOf twice
-			var len = b64.length
-			placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
-
-			// base64 is 4/3 + up to two characters of the original data
-			arr = new Arr(b64.length * 3 / 4 - placeHolders)
-
-			// if there are placeholders, only get up to the last complete 4 chars
-			l = placeHolders > 0 ? b64.length - 4 : b64.length
-
-			var L = 0
-
-			function push (v) {
-				arr[L++] = v
-			}
-
-			for (i = 0, j = 0; i < l; i += 4, j += 3) {
-				tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
-				push((tmp & 0xFF0000) >> 16)
-				push((tmp & 0xFF00) >> 8)
-				push(tmp & 0xFF)
-			}
-
-			if (placeHolders === 2) {
-				tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
-				push(tmp & 0xFF)
-			} else if (placeHolders === 1) {
-				tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
-				push((tmp >> 8) & 0xFF)
-				push(tmp & 0xFF)
-			}
-
-			return arr
-		}
-
-		function uint8ToBase64 (uint8) {
-			var i,
-				extraBytes = uint8.length % 3, // if we have 1 byte left, pad 2 bytes
-				output = "",
-				temp, length
-
-			function encode (num) {
-				return lookup.charAt(num)
-			}
-
-			function tripletToBase64 (num) {
-				return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
-			}
-
-			// go through the array every three bytes, we'll deal with trailing stuff later
-			for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
-				temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
-				output += tripletToBase64(temp)
-			}
-
-			// pad the end with zeros, but make sure to not forget the extra bytes
-			switch (extraBytes) {
-				case 1:
-					temp = uint8[uint8.length - 1]
-					output += encode(temp >> 2)
-					output += encode((temp << 4) & 0x3F)
-					output += '=='
-					break
-				case 2:
-					temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
-					output += encode(temp >> 10)
-					output += encode((temp >> 4) & 0x3F)
-					output += encode((temp << 2) & 0x3F)
-					output += '='
-					break
-			}
-
-			return output
-		}
-
-		exports.toByteArray = b64ToByteArray
-		exports.fromByteArray = uint8ToBase64
-	}(false ? (this.base64js = {}) : exports))
 
 
 /***/ },
@@ -13129,7 +13129,7 @@
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DomUtils  = __webpack_require__(30),
+	var DomUtils  = __webpack_require__(32),
 	    hasAttrib = DomUtils.hasAttrib,
 	    getAttributeValue = DomUtils.getAttributeValue,
 	    falseFunc = __webpack_require__(18).falseFunc;
@@ -13313,7 +13313,7 @@
 /* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DomUtils    = __webpack_require__(30),
+	var DomUtils    = __webpack_require__(32),
 	    isTag       = DomUtils.isTag,
 	    getParent   = DomUtils.getParent,
 	    getChildren = DomUtils.getChildren,
@@ -13460,6 +13460,162 @@
 
 /***/ },
 /* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var inverseXML = getInverseObj(__webpack_require__(67)),
+	    xmlReplacer = getInverseReplacer(inverseXML);
+
+	exports.XML = getInverse(inverseXML, xmlReplacer);
+
+	var inverseHTML = getInverseObj(__webpack_require__(68)),
+	    htmlReplacer = getInverseReplacer(inverseHTML);
+
+	exports.HTML = getInverse(inverseHTML, htmlReplacer);
+
+	function getInverseObj(obj){
+		return Object.keys(obj).sort().reduce(function(inverse, name){
+			inverse[obj[name]] = "&" + name + ";";
+			return inverse;
+		}, {});
+	}
+
+	function getInverseReplacer(inverse){
+		var single = [],
+		    multiple = [];
+
+		Object.keys(inverse).forEach(function(k){
+			if(k.length === 1){
+				single.push("\\" + k);
+			} else {
+				multiple.push(k);
+			}
+		});
+
+		//TODO add ranges
+		multiple.unshift("[" + single.join("") + "]");
+
+		return new RegExp(multiple.join("|"), "g");
+	}
+
+	var re_nonASCII = /[^\0-\x7F]/g,
+	    re_astralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+
+	function singleCharReplacer(c){
+		return "&#x" + c.charCodeAt(0).toString(16).toUpperCase() + ";";
+	}
+
+	function astralReplacer(c){
+		// http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+		var high = c.charCodeAt(0);
+		var low  = c.charCodeAt(1);
+		var codePoint = (high - 0xD800) * 0x400 + low - 0xDC00 + 0x10000;
+		return "&#x" + codePoint.toString(16).toUpperCase() + ";";
+	}
+
+	function getInverse(inverse, re){
+		function func(name){
+			return inverse[name];
+		}
+
+		return function(data){
+			return data
+					.replace(re, func)
+					.replace(re_astralSymbols, astralReplacer)
+					.replace(re_nonASCII, singleCharReplacer);
+		};
+	}
+
+	var re_xmlChars = getInverseReplacer(inverseXML);
+
+	function escapeXML(data){
+		return data
+				.replace(re_xmlChars, singleCharReplacer)
+				.replace(re_astralSymbols, astralReplacer)
+				.replace(re_nonASCII, singleCharReplacer);
+	}
+
+	exports.escape = escapeXML;
+
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var entityMap = __webpack_require__(68),
+	    legacyMap = __webpack_require__(69),
+	    xmlMap    = __webpack_require__(67),
+	    decodeCodePoint = __webpack_require__(63);
+
+	var decodeXMLStrict  = getStrictDecoder(xmlMap),
+	    decodeHTMLStrict = getStrictDecoder(entityMap);
+
+	function getStrictDecoder(map){
+		var keys = Object.keys(map).join("|"),
+		    replace = getReplacer(map);
+
+		keys += "|#[xX][\\da-fA-F]+|#\\d+";
+
+		var re = new RegExp("&(?:" + keys + ");", "g");
+
+		return function(str){
+			return String(str).replace(re, replace);
+		};
+	}
+
+	var decodeHTML = (function(){
+		var legacy = Object.keys(legacyMap)
+			.sort(sorter);
+
+		var keys = Object.keys(entityMap)
+			.sort(sorter);
+
+		for(var i = 0, j = 0; i < keys.length; i++){
+			if(legacy[j] === keys[i]){
+				keys[i] += ";?";
+				j++;
+			} else {
+				keys[i] += ";";
+			}
+		}
+
+		var re = new RegExp("&(?:" + keys.join("|") + "|#[xX][\\da-fA-F]+;?|#\\d+;?)", "g"),
+		    replace = getReplacer(entityMap);
+
+		function replacer(str){
+			if(str.substr(-1) !== ";") str += ";";
+			return replace(str);
+		}
+
+		//TODO consider creating a merged map
+		return function(str){
+			return String(str).replace(re, replacer);
+		};
+	}());
+
+	function sorter(a, b){
+		return a < b ? 1 : -1;
+	}
+
+	function getReplacer(map){
+		return function replace(str){
+			if(str.charAt(1) === "#"){
+				if(str.charAt(2) === "X" || str.charAt(2) === "x"){
+					return decodeCodePoint(parseInt(str.substr(3), 16));
+				}
+				return decodeCodePoint(parseInt(str.substr(2), 10));
+			}
+			return map[str.slice(1, -1)];
+		};
+	}
+
+	module.exports = {
+		XML: decodeXMLStrict,
+		HTML: decodeHTML,
+		HTMLStrict: decodeHTMLStrict
+	};
+
+/***/ },
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13646,10 +13802,10 @@
 	}
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(73),
+	var ElementType = __webpack_require__(74),
 	    isTag = ElementType.isTag;
 
 	module.exports = {
@@ -13744,7 +13900,7 @@
 	}
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var getChildren = exports.getChildren = function(elem){
@@ -13774,7 +13930,7 @@
 
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports.removeElement = function(elem){
@@ -13857,10 +14013,10 @@
 
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isTag = __webpack_require__(73).isTag;
+	var isTag = __webpack_require__(74).isTag;
 
 	module.exports = {
 		filter: filter,
@@ -13957,10 +14113,10 @@
 
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(73);
+	var ElementType = __webpack_require__(74);
 	var isTag = exports.isTag = ElementType.isTag;
 
 	exports.testElement = function(options, element){
@@ -14050,7 +14206,7 @@
 
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// removeSubsets
@@ -14085,162 +14241,6 @@
 		return nodes;
 	};
 
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var inverseXML = getInverseObj(__webpack_require__(67)),
-	    xmlReplacer = getInverseReplacer(inverseXML);
-
-	exports.XML = getInverse(inverseXML, xmlReplacer);
-
-	var inverseHTML = getInverseObj(__webpack_require__(68)),
-	    htmlReplacer = getInverseReplacer(inverseHTML);
-
-	exports.HTML = getInverse(inverseHTML, htmlReplacer);
-
-	function getInverseObj(obj){
-		return Object.keys(obj).sort().reduce(function(inverse, name){
-			inverse[obj[name]] = "&" + name + ";";
-			return inverse;
-		}, {});
-	}
-
-	function getInverseReplacer(inverse){
-		var single = [],
-		    multiple = [];
-
-		Object.keys(inverse).forEach(function(k){
-			if(k.length === 1){
-				single.push("\\" + k);
-			} else {
-				multiple.push(k);
-			}
-		});
-
-		//TODO add ranges
-		multiple.unshift("[" + single.join("") + "]");
-
-		return new RegExp(multiple.join("|"), "g");
-	}
-
-	var re_nonASCII = /[^\0-\x7F]/g,
-	    re_astralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-
-	function singleCharReplacer(c){
-		return "&#x" + c.charCodeAt(0).toString(16).toUpperCase() + ";";
-	}
-
-	function astralReplacer(c){
-		// http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-		var high = c.charCodeAt(0);
-		var low  = c.charCodeAt(1);
-		var codePoint = (high - 0xD800) * 0x400 + low - 0xDC00 + 0x10000;
-		return "&#x" + codePoint.toString(16).toUpperCase() + ";";
-	}
-
-	function getInverse(inverse, re){
-		function func(name){
-			return inverse[name];
-		}
-
-		return function(data){
-			return data
-					.replace(re, func)
-					.replace(re_astralSymbols, astralReplacer)
-					.replace(re_nonASCII, singleCharReplacer);
-		};
-	}
-
-	var re_xmlChars = getInverseReplacer(inverseXML);
-
-	function escapeXML(data){
-		return data
-				.replace(re_xmlChars, singleCharReplacer)
-				.replace(re_astralSymbols, astralReplacer)
-				.replace(re_nonASCII, singleCharReplacer);
-	}
-
-	exports.escape = escapeXML;
-
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var entityMap = __webpack_require__(68),
-	    legacyMap = __webpack_require__(69),
-	    xmlMap    = __webpack_require__(67),
-	    decodeCodePoint = __webpack_require__(66);
-
-	var decodeXMLStrict  = getStrictDecoder(xmlMap),
-	    decodeHTMLStrict = getStrictDecoder(entityMap);
-
-	function getStrictDecoder(map){
-		var keys = Object.keys(map).join("|"),
-		    replace = getReplacer(map);
-
-		keys += "|#[xX][\\da-fA-F]+|#\\d+";
-
-		var re = new RegExp("&(?:" + keys + ");", "g");
-
-		return function(str){
-			return String(str).replace(re, replace);
-		};
-	}
-
-	var decodeHTML = (function(){
-		var legacy = Object.keys(legacyMap)
-			.sort(sorter);
-
-		var keys = Object.keys(entityMap)
-			.sort(sorter);
-
-		for(var i = 0, j = 0; i < keys.length; i++){
-			if(legacy[j] === keys[i]){
-				keys[i] += ";?";
-				j++;
-			} else {
-				keys[i] += ";";
-			}
-		}
-
-		var re = new RegExp("&(?:" + keys.join("|") + "|#[xX][\\da-fA-F]+;?|#\\d+;?)", "g"),
-		    replace = getReplacer(entityMap);
-
-		function replacer(str){
-			if(str.substr(-1) !== ";") str += ";";
-			return replace(str);
-		}
-
-		//TODO consider creating a merged map
-		return function(str){
-			return String(str).replace(re, replacer);
-		};
-	}());
-
-	function sorter(a, b){
-		return a < b ? 1 : -1;
-	}
-
-	function getReplacer(map){
-		return function replace(str){
-			if(str.charAt(1) === "#"){
-				if(str.charAt(2) === "X" || str.charAt(2) === "x"){
-					return decodeCodePoint(parseInt(str.substr(3), 16));
-				}
-				return decodeCodePoint(parseInt(str.substr(2), 10));
-			}
-			return map[str.slice(1, -1)];
-		};
-	}
-
-	module.exports = {
-		XML: decodeXMLStrict,
-		HTML: decodeHTML,
-		HTMLStrict: decodeHTMLStrict
-	};
 
 /***/ },
 /* 51 */
@@ -15140,7 +15140,7 @@
 	  return Object.prototype.hasOwnProperty.call(obj, prop);
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(72)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(73)))
 
 /***/ },
 /* 53 */
@@ -15355,7 +15355,7 @@
 /* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(34),
+	var ElementType = __webpack_require__(35),
 	    isTag = ElementType.isTag;
 
 	module.exports = {
@@ -15566,7 +15566,7 @@
 /* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isTag = __webpack_require__(34).isTag;
+	var isTag = __webpack_require__(35).isTag;
 
 	module.exports = {
 		filter: filter,
@@ -15666,7 +15666,7 @@
 /* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(34);
+	var ElementType = __webpack_require__(35);
 	var isTag = exports.isTag = ElementType.isTag;
 
 	exports.testElement = function(options, element){
@@ -15936,6 +15936,151 @@
 
 /***/ },
 /* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var decodeMap = __webpack_require__(72);
+
+	module.exports = decodeCodePoint;
+
+	// modified version of https://github.com/mathiasbynens/he/blob/master/src/he.js#L94-L119
+	function decodeCodePoint(codePoint){
+
+		if((codePoint >= 0xD800 && codePoint <= 0xDFFF) || codePoint > 0x10FFFF){
+			return "\uFFFD";
+		}
+
+		if(codePoint in decodeMap){
+			codePoint = decodeMap[codePoint];
+		}
+
+		var output = "";
+
+		if(codePoint > 0xFFFF){
+			codePoint -= 0x10000;
+			output += String.fromCharCode(codePoint >>> 10 & 0x3FF | 0xD800);
+			codePoint = 0xDC00 | codePoint & 0x3FF;
+		}
+
+		output += String.fromCharCode(codePoint);
+		return output;
+	}
+
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		"Aacute": "Á",
+		"aacute": "á",
+		"Acirc": "Â",
+		"acirc": "â",
+		"acute": "´",
+		"AElig": "Æ",
+		"aelig": "æ",
+		"Agrave": "À",
+		"agrave": "à",
+		"amp": "&",
+		"AMP": "&",
+		"Aring": "Å",
+		"aring": "å",
+		"Atilde": "Ã",
+		"atilde": "ã",
+		"Auml": "Ä",
+		"auml": "ä",
+		"brvbar": "¦",
+		"Ccedil": "Ç",
+		"ccedil": "ç",
+		"cedil": "¸",
+		"cent": "¢",
+		"copy": "©",
+		"COPY": "©",
+		"curren": "¤",
+		"deg": "°",
+		"divide": "÷",
+		"Eacute": "É",
+		"eacute": "é",
+		"Ecirc": "Ê",
+		"ecirc": "ê",
+		"Egrave": "È",
+		"egrave": "è",
+		"ETH": "Ð",
+		"eth": "ð",
+		"Euml": "Ë",
+		"euml": "ë",
+		"frac12": "½",
+		"frac14": "¼",
+		"frac34": "¾",
+		"gt": ">",
+		"GT": ">",
+		"Iacute": "Í",
+		"iacute": "í",
+		"Icirc": "Î",
+		"icirc": "î",
+		"iexcl": "¡",
+		"Igrave": "Ì",
+		"igrave": "ì",
+		"iquest": "¿",
+		"Iuml": "Ï",
+		"iuml": "ï",
+		"laquo": "«",
+		"lt": "<",
+		"LT": "<",
+		"macr": "¯",
+		"micro": "µ",
+		"middot": "·",
+		"nbsp": " ",
+		"not": "¬",
+		"Ntilde": "Ñ",
+		"ntilde": "ñ",
+		"Oacute": "Ó",
+		"oacute": "ó",
+		"Ocirc": "Ô",
+		"ocirc": "ô",
+		"Ograve": "Ò",
+		"ograve": "ò",
+		"ordf": "ª",
+		"ordm": "º",
+		"Oslash": "Ø",
+		"oslash": "ø",
+		"Otilde": "Õ",
+		"otilde": "õ",
+		"Ouml": "Ö",
+		"ouml": "ö",
+		"para": "¶",
+		"plusmn": "±",
+		"pound": "£",
+		"quot": "\"",
+		"QUOT": "\"",
+		"raquo": "»",
+		"reg": "®",
+		"REG": "®",
+		"sect": "§",
+		"shy": "­",
+		"sup1": "¹",
+		"sup2": "²",
+		"sup3": "³",
+		"szlig": "ß",
+		"THORN": "Þ",
+		"thorn": "þ",
+		"times": "×",
+		"Uacute": "Ú",
+		"uacute": "ú",
+		"Ucirc": "Û",
+		"ucirc": "û",
+		"Ugrave": "Ù",
+		"ugrave": "ù",
+		"uml": "¨",
+		"Uuml": "Ü",
+		"uuml": "ü",
+		"Yacute": "Ý",
+		"yacute": "ý",
+		"yen": "¥",
+		"yuml": "ÿ"
+	}
+
+/***/ },
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -18067,120 +18212,7 @@
 	}
 
 /***/ },
-/* 64 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		"Aacute": "Á",
-		"aacute": "á",
-		"Acirc": "Â",
-		"acirc": "â",
-		"acute": "´",
-		"AElig": "Æ",
-		"aelig": "æ",
-		"Agrave": "À",
-		"agrave": "à",
-		"amp": "&",
-		"AMP": "&",
-		"Aring": "Å",
-		"aring": "å",
-		"Atilde": "Ã",
-		"atilde": "ã",
-		"Auml": "Ä",
-		"auml": "ä",
-		"brvbar": "¦",
-		"Ccedil": "Ç",
-		"ccedil": "ç",
-		"cedil": "¸",
-		"cent": "¢",
-		"copy": "©",
-		"COPY": "©",
-		"curren": "¤",
-		"deg": "°",
-		"divide": "÷",
-		"Eacute": "É",
-		"eacute": "é",
-		"Ecirc": "Ê",
-		"ecirc": "ê",
-		"Egrave": "È",
-		"egrave": "è",
-		"ETH": "Ð",
-		"eth": "ð",
-		"Euml": "Ë",
-		"euml": "ë",
-		"frac12": "½",
-		"frac14": "¼",
-		"frac34": "¾",
-		"gt": ">",
-		"GT": ">",
-		"Iacute": "Í",
-		"iacute": "í",
-		"Icirc": "Î",
-		"icirc": "î",
-		"iexcl": "¡",
-		"Igrave": "Ì",
-		"igrave": "ì",
-		"iquest": "¿",
-		"Iuml": "Ï",
-		"iuml": "ï",
-		"laquo": "«",
-		"lt": "<",
-		"LT": "<",
-		"macr": "¯",
-		"micro": "µ",
-		"middot": "·",
-		"nbsp": " ",
-		"not": "¬",
-		"Ntilde": "Ñ",
-		"ntilde": "ñ",
-		"Oacute": "Ó",
-		"oacute": "ó",
-		"Ocirc": "Ô",
-		"ocirc": "ô",
-		"Ograve": "Ò",
-		"ograve": "ò",
-		"ordf": "ª",
-		"ordm": "º",
-		"Oslash": "Ø",
-		"oslash": "ø",
-		"Otilde": "Õ",
-		"otilde": "õ",
-		"Ouml": "Ö",
-		"ouml": "ö",
-		"para": "¶",
-		"plusmn": "±",
-		"pound": "£",
-		"quot": "\"",
-		"QUOT": "\"",
-		"raquo": "»",
-		"reg": "®",
-		"REG": "®",
-		"sect": "§",
-		"shy": "­",
-		"sup1": "¹",
-		"sup2": "²",
-		"sup3": "³",
-		"szlig": "ß",
-		"THORN": "Þ",
-		"thorn": "þ",
-		"times": "×",
-		"Uacute": "Ú",
-		"uacute": "ú",
-		"Ucirc": "Û",
-		"ucirc": "û",
-		"Ugrave": "Ù",
-		"ugrave": "ù",
-		"uml": "¨",
-		"Uuml": "Ü",
-		"uuml": "ü",
-		"Yacute": "Ý",
-		"yacute": "ý",
-		"yen": "¥",
-		"yuml": "ÿ"
-	}
-
-/***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -18190,38 +18222,6 @@
 		"lt": "<",
 		"quot": "\""
 	}
-
-/***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var decodeMap = __webpack_require__(74);
-
-	module.exports = decodeCodePoint;
-
-	// modified version of https://github.com/mathiasbynens/he/blob/master/src/he.js#L94-L119
-	function decodeCodePoint(codePoint){
-
-		if((codePoint >= 0xD800 && codePoint <= 0xDFFF) || codePoint > 0x10FFFF){
-			return "\uFFFD";
-		}
-
-		if(codePoint in decodeMap){
-			codePoint = decodeMap[codePoint];
-		}
-
-		var output = "";
-
-		if(codePoint > 0xFFFF){
-			codePoint -= 0x10000;
-			output += String.fromCharCode(codePoint >>> 10 & 0x3FF | 0xD800);
-			codePoint = 0xDC00 | codePoint & 0x3FF;
-		}
-
-		output += String.fromCharCode(codePoint);
-		return output;
-	}
-
 
 /***/ },
 /* 67 */
@@ -20530,6 +20530,41 @@
 /* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = {
+		"0": 65533,
+		"128": 8364,
+		"130": 8218,
+		"131": 402,
+		"132": 8222,
+		"133": 8230,
+		"134": 8224,
+		"135": 8225,
+		"136": 710,
+		"137": 8240,
+		"138": 352,
+		"139": 8249,
+		"140": 338,
+		"142": 381,
+		"145": 8216,
+		"146": 8217,
+		"147": 8220,
+		"148": 8221,
+		"149": 8226,
+		"150": 8211,
+		"151": 8212,
+		"152": 732,
+		"153": 8482,
+		"154": 353,
+		"155": 8250,
+		"156": 339,
+		"158": 382,
+		"159": 376
+	}
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// shim for using process in browser
 
 	var process = module.exports = {};
@@ -20619,7 +20654,7 @@
 
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	//Types of elements found in the DOM
@@ -20636,41 +20671,6 @@
 			return elem.type === "tag" || elem.type === "script" || elem.type === "style";
 		}
 	};
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		"0": 65533,
-		"128": 8364,
-		"130": 8218,
-		"131": 402,
-		"132": 8222,
-		"133": 8230,
-		"134": 8224,
-		"135": 8225,
-		"136": 710,
-		"137": 8240,
-		"138": 352,
-		"139": 8249,
-		"140": 338,
-		"142": 381,
-		"145": 8216,
-		"146": 8217,
-		"147": 8220,
-		"148": 8221,
-		"149": 8226,
-		"150": 8211,
-		"151": 8212,
-		"152": 732,
-		"153": 8482,
-		"154": 353,
-		"155": 8250,
-		"156": 339,
-		"158": 382,
-		"159": 376
-	}
 
 /***/ },
 /* 75 */
@@ -20820,8 +20820,8 @@
 	var Stream = __webpack_require__(53);
 
 	/*<replacement>*/
-	var util = __webpack_require__(90);
-	util.inherits = __webpack_require__(91);
+	var util = __webpack_require__(91);
+	util.inherits = __webpack_require__(90);
 	/*</replacement>*/
 
 	var StringDecoder;
@@ -21727,7 +21727,7 @@
 	  return -1;
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(72)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
 /* 83 */
@@ -21768,8 +21768,8 @@
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(90);
-	util.inherits = __webpack_require__(91);
+	var util = __webpack_require__(91);
+	util.inherits = __webpack_require__(90);
 	/*</replacement>*/
 
 	var Stream = __webpack_require__(53);
@@ -22211,7 +22211,7 @@
 	  state.ended = true;
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(72)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
 /* 84 */
@@ -22255,8 +22255,8 @@
 
 
 	/*<replacement>*/
-	var util = __webpack_require__(90);
-	util.inherits = __webpack_require__(91);
+	var util = __webpack_require__(91);
+	util.inherits = __webpack_require__(90);
 	/*</replacement>*/
 
 	var Readable = __webpack_require__(82);
@@ -22307,7 +22307,7 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(72)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(73)))
 
 /***/ },
 /* 85 */
@@ -22382,8 +22382,8 @@
 	var Duplex = __webpack_require__(84);
 
 	/*<replacement>*/
-	var util = __webpack_require__(90);
-	util.inherits = __webpack_require__(91);
+	var util = __webpack_require__(91);
+	util.inherits = __webpack_require__(90);
 	/*</replacement>*/
 
 	util.inherits(Transform, Duplex);
@@ -22558,8 +22558,8 @@
 	var Transform = __webpack_require__(85);
 
 	/*<replacement>*/
-	var util = __webpack_require__(90);
-	util.inherits = __webpack_require__(91);
+	var util = __webpack_require__(91);
+	util.inherits = __webpack_require__(90);
 	/*</replacement>*/
 
 	util.inherits(PassThrough, Transform);
@@ -22822,6 +22822,35 @@
 /* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
+	if (typeof Object.create === 'function') {
+	  // implementation from standard node.js 'util' module
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    ctor.prototype = Object.create(superCtor.prototype, {
+	      constructor: {
+	        value: ctor,
+	        enumerable: false,
+	        writable: true,
+	        configurable: true
+	      }
+	    });
+	  };
+	} else {
+	  // old school shim for old browsers
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    var TempCtor = function () {}
+	    TempCtor.prototype = superCtor.prototype
+	    ctor.prototype = new TempCtor()
+	    ctor.prototype.constructor = ctor
+	  }
+	}
+
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
 	/* WEBPACK VAR INJECTION */(function(Buffer) {// Copyright Joyent, Inc. and other Node contributors.
 	//
 	// Permission is hereby granted, free of charge, to any person obtaining a
@@ -22930,35 +22959,6 @@
 	  return Object.prototype.toString.call(o);
 	}
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13).Buffer))
-
-/***/ },
-/* 91 */
-/***/ function(module, exports, __webpack_require__) {
-
-	if (typeof Object.create === 'function') {
-	  // implementation from standard node.js 'util' module
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    ctor.prototype = Object.create(superCtor.prototype, {
-	      constructor: {
-	        value: ctor,
-	        enumerable: false,
-	        writable: true,
-	        configurable: true
-	      }
-	    });
-	  };
-	} else {
-	  // old school shim for old browsers
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    var TempCtor = function () {}
-	    TempCtor.prototype = superCtor.prototype
-	    ctor.prototype = new TempCtor()
-	    ctor.prototype.constructor = ctor
-	  }
-	}
-
 
 /***/ }
 /******/ ])
