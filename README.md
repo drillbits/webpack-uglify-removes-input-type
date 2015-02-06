@@ -1,7 +1,7 @@
 webpack-uglify-removes-input-type
 =================================
 
-This is a test repository for webpack/webpack#752.
+This is a test repository for [webpack/webpack#752](https://github.com/webpack/webpack/issues/752).
 
 [webpack.optimize.UglifyJsPlugin](http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin) seems to remove a text type attribute of the input tag from html string that loaded by [html-loader](https://www.npmjs.com/package/html-loader).
 
