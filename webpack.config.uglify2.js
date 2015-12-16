@@ -9,7 +9,7 @@ module.exports = {
   },
   output: {
     path: '<%= dirs.dest %>',
-    filename: '[name].bundle.min.js',
+    filename: '[name].bundle.min2.js',
     chunkFilename: '[chunkhash].js'
   },
   module: {
@@ -36,6 +36,8 @@ module.exports = {
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(
         ['bower.json'], ['main'])
     ]),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: false
+    })
   ]
 }

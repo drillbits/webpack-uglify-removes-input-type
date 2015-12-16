@@ -9,6 +9,11 @@ echo '=============================================='
 node dest/embedhtml.bundle.min.js
 echo ''
 
+echo 'Embed html string and uglify by webpack plugin 2'
+echo '=============================================='
+node dest/embedhtml.bundle.min2.js
+echo ''
+
 echo 'Embed html string and uglify by grunt'
 echo '=============================================='
 node dest/embedhtml.bundle.min-by-grunt.js
@@ -22,6 +27,11 @@ echo ''
 echo 'Load html and uglify by webpack plugin'
 echo '=============================================='
 node dest/loadhtml.bundle.min.js
+echo ''
+
+echo 'Load html and uglify by webpack plugin 2'
+echo '=============================================='
+node dest/loadhtml.bundle.min2.js
 echo ''
 
 echo 'Load html and uglify by grunt'

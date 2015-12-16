@@ -7,7 +7,8 @@ module.exports = function(grunt) {
     },
     webpack: {
       build: require('./webpack.config.js'),
-      uglify: require('./webpack.config.uglify.js')
+      uglify: require('./webpack.config.uglify.js'),
+      uglify2: require('./webpack.config.uglify2.js')
     },
     uglify: {
       uglify_by_grunt: {

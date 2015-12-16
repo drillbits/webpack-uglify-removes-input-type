@@ -23,6 +23,6 @@
     "grunt-webpack": "^1.0.8",
     "html-loader": "^0.2.3",
     "json-loader": "^0.5.1",
-    "webpack": "^1.5.3"
+    "webpack": "git://github.com/drillbits/webpack.git#allow-minimize-option-in-uglifyjs-plugin"
   }
 }
